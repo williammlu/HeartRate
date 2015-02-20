@@ -21,7 +21,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="28sp"
         android:gravity="center"
-        android:text="Tap Heart with Pulses to Begin"
+        android:text="Tap Heart to Begin"
         android:id="@+id/RateCounter"
         android:typeface="normal"
         android:textAlignment="center"
@@ -29,15 +29,18 @@
         android:layout_alignWithParentIfMissing="false"
         android:layout_above="@+id/HeartButton"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="RESET COUNT"
         android:id="@+id/resetButton"
+        android:padding="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
 
 </RelativeLayout>
