@@ -93,10 +93,10 @@ public class MainActivity extends Activity {
                 } else {
                     times[(counter % times.length)] = System.currentTimeMillis();
                     if (counter >= times.length) {
-                        deltaTime = times[(counter % times.length)] - times[((counter + 1) % times.length)];
+                        deltaTime = (long)((times[(counter % times.length)] - times[((counter + 1) % times.length)]) * ((times.length +1.0)/times.length));
                     } else {
                         // array not full yet
-                        deltaTime = times[counter] - times[0];
+                        deltaTime = (long)((times[counter] - times[0]) * (counter +1.0 )/counter);
                     }
 
                     if ((times[counter % times.length] - times[(counter - 1 ) % times.length]) > 5000) {// alternate code
