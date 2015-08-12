@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
                 TextView box = (TextView) findViewById(R.id.RateCounter);
                 counter = 0;
                 currentlyCounting = false;
-                box.setText("Tap Heart to Begin");
+                box.setText("Thump Heart to Start");
                 times = new long[beatsToConsider];
             }
 
@@ -84,23 +84,24 @@ public class MainActivity extends Activity {
             public void onClick(View arg0) {
                 TextView box = (TextView) findViewById(R.id.RateCounter);
                 long deltaTime;
-                if (!currentlyCounting) {
-
+                if (!currentlyCounting) { //starting counting
                         currentlyCounting = true;
                         times[(counter % times.length)] = System.currentTimeMillis();
                     counter++;
-                    box.setText("Continue Tapping");
+                    box.setText("Continue Thumping!");
                 } else {
                     times[(counter % times.length)] = System.currentTimeMillis();
+                    // array times is filled in order
                     if (counter >= times.length) {
                         deltaTime = (long)((times[(counter % times.length)] - times[((counter + 1) % times.length)]) * ((times.length +1.0)/times.length));
+                        //deltaTime = (newest thump time - oldest thump time) * factor to account for not having 1 delta time for each recorded thump
+                        // e.g. for 20 taps, there are only 19 periods of time between the taps, so extra period must be extrapolated for 20 periods
                     } else {
-                        // array not full yet
+                        // array not full yet, compare first and last recorded time instead
                         deltaTime = (long)((times[counter] - times[0]) * (counter +1.0 )/counter);
                     }
-
-                    if ((times[counter % times.length] - times[(counter - 1 ) % times.length]) > 5000) {// alternate code
-                        //reset from overtime
+                    // built in reset after 5 seconds of inactivity
+                    if ((times[counter % times.length] - times[(counter - 1 ) % times.length]) > 5000) {
                         counter = 0;
                         currentlyCounting = false;
                         box.setText("5 seconds have passed.\nCounter has reset");
@@ -109,7 +110,7 @@ public class MainActivity extends Activity {
 
                     else {
                         counter++;
-                        double heartRate = Math.min(counter, times.length) / (deltaTime/ 60000.0);
+                        double heartRate = Math.min(counter, times.length) / (deltaTime/ 60000.0); // number of taps/seconds passed
                         NumberFormat formatter = new DecimalFormat("##0.0");
                         box.setText(formatter.format(heartRate) + " BPM");
 //                        long x = (times[counter % times.length] - times[(counter - 1 ) % times.length]);
